@@ -59,10 +59,7 @@ export default function HistoryPage() {
 export function DateRow({ date }: { date: string }) {
   return (
     <div className={styles.dateRow}>
-      {/* TODO make surrounding divs Fancy, or make the Fancy in CSS */}
-      <div />
       <h2>{date}</h2>
-      <div />
     </div>
   );
 }

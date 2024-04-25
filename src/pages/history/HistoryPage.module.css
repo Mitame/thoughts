@@ -1,11 +1,6 @@
 .dateRow {
   grid-column: start / end;
-  display: grid;
-  grid-template-columns: [start] 1fr min-content 1fr;
-}
-
-.date {
-  margin: 0 0.125rem;
+  text-align: center;
 }
 
 .time {
