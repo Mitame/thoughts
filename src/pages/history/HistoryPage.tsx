@@ -1,18 +1,10 @@
-import {
-  Fragment,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import {
   Thought,
   ThoughtStorageContext,
 } from "../../providers/ThoughtStorageProvider";
 import styles from "./HistoryPage.module.css";
-import papaparse from "papaparse";
+import ExportButton from "./ExportButton";
 
 type DateT = string & { readonly tag: unique symbol };
 
@@ -67,29 +59,6 @@ export default function HistoryPage() {
         <ExportButton thoughts={thoughts ?? []} />
       </div>
     </div>
-  );
-}
-
-export function ExportButton({ thoughts }: { thoughts: Thought[] }) {
-  const linkRef = useRef<HTMLAnchorElement>(null);
-
-  const onClick = useCallback(() => {
-    if (linkRef.current == null) {
-      return;
-    }
-    const csvData = papaparse.unparse(thoughts);
-    const blob = new Blob([csvData], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    linkRef.current.href = url;
-    linkRef.current.download = "thoughts-export.csv";
-    linkRef.current.click();
-  }, [thoughts]);
-
-  return (
-    <>
-      <button onClick={onClick}>Export</button>
-      <a ref={linkRef} />
-    </>
   );
 }
 
