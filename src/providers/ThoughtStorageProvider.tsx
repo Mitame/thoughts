@@ -30,7 +30,7 @@ function openDatabase(name: string, version?: number): Promise<IDBDatabase> {
 
     request.onerror = (event) => {
       console.error("Database open failed with error", event);
-      rej(event);
+      rej(request.error);
     };
 
     request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
@@ -79,7 +79,6 @@ async function performDatabaseUpgrade1(database: IDBDatabase): Promise<void> {
       res(undefined);
     };
     thoughtsStore.transaction.onerror = (event) => {
-      console.error(event);
       rej(event);
     };
   });
@@ -100,14 +99,13 @@ export default function ThoughtStorageProvider({
           const transaction = db.transaction([OBJECT_STORE_NAME], "readwrite");
           return new Promise((res, rej) => {
             const thoughtsStore = transaction.objectStore(OBJECT_STORE_NAME);
-            thoughtsStore.add(thought);
+            const request = thoughtsStore.add(thought);
 
             transaction.oncomplete = () => {
               res(null);
             };
-            transaction.onerror = (event) => {
-              console.error(event);
-              rej(event);
+            transaction.onerror = () => {
+              rej(request.error);
             };
           });
         });
@@ -122,9 +120,8 @@ export default function ThoughtStorageProvider({
             request.onsuccess = () => {
               res(request.result);
             };
-            request.onerror = (event) => {
-              console.error(event);
-              rej(event);
+            request.onerror = () => {
+              rej(request.error);
             };
           });
         });

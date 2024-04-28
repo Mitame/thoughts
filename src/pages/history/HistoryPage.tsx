@@ -1,10 +1,18 @@
-import { Fragment, useContext, useEffect, useMemo, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Thought,
   ThoughtStorageContext,
 } from "../../providers/ThoughtStorageProvider";
 import styles from "./HistoryPage.module.css";
 import ExportButton from "./ExportButton";
+import ImportButton from "./ImportButton";
 
 type DateT = string & { readonly tag: unique symbol };
 
@@ -48,6 +56,28 @@ export default function HistoryPage() {
     return thoughtsGroupedByDate;
   }, [thoughts]);
 
+  const onImport = useCallback(
+    async (thoughts: Thought[]) => {
+      for (const thought of thoughts) {
+        try {
+          await thoughtStorage.storeThought(thought);
+        } catch (e: unknown) {
+          if (typeof e !== "object" || e == null) {
+            throw e;
+          }
+          if (!("name" in e)) {
+            throw e;
+          }
+          // Ignore ConstraintErrors -- this should indicate the entry is already stored.
+          if (e.name !== "ConstraintError") {
+            throw e;
+          }
+        }
+      }
+    },
+    [thoughtStorage],
+  );
+
   return (
     <div className={styles.page}>
       <div className={styles.thoughts}>
@@ -56,6 +86,7 @@ export default function HistoryPage() {
         ))}
       </div>
       <div className={styles.buttonGroup}>
+        <ImportButton onImport={onImport} />
         <ExportButton thoughts={thoughts ?? []} />
       </div>
     </div>
