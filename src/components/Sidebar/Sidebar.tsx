@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
-export type Props = {};
-
-export default function Sidebar({}: Props) {
+export default function Sidebar() {
   return (
     <div className={styles.sidebar}>
       <div className={styles.drawer}>
