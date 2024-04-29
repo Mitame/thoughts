@@ -1,0 +1,11 @@
+{
+  "name": "Thoughts",
+  "display": "minimal-ui",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any"
+    }
+  ]
+}
