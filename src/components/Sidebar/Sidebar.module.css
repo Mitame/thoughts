@@ -22,8 +22,4 @@
 .link {
   display: block;
   height: 30px;
-
-  &:hover {
-    background-color: red;
-  }
 }
