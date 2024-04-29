@@ -22,7 +22,7 @@
           name = "thoughts";
           src = ./.;
 
-          npmDepsHash = "sha256-CvIqq4MN2ReT5rWM8WmpJdX+Fd0jiLfW2256Cp6GnnA=";
+          npmDepsHash = "sha256-SVFTPwIEtXVaCD304QLtNdz3x/DAyWjX2mZkrVFOTLU=";
 
           installPhase = ''
             cp -r ./dist $out
