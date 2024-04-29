@@ -16,14 +16,15 @@
   left: 0;
   bottom: 0;
   padding: 5px;
-  width: calc(min(30vw, 300px));
+  width: 100px;
 }
 
 .link {
   display: block;
   height: 30px;
+  padding-left: 10px;
 
-  &:hover {
-    background-color: red;
+  &.active {
+    background-color: #80808022;
   }
 }

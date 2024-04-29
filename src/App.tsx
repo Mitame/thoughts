@@ -8,12 +8,12 @@ const EntryPage = lazy(() => import("./pages/entry/EntryPage"));
 function App() {
   return (
     <ThoughtStorageProvider>
-      <Sidebar />
-
       <Routes>
         <Route path="/" element={<EntryPage />} />
         <Route path="/history" element={<HistoryPage />} />
       </Routes>
+
+      <Sidebar />
     </ThoughtStorageProvider>
   );
 }
