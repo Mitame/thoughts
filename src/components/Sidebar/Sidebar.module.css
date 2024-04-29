@@ -22,4 +22,9 @@
 .link {
   display: block;
   height: 30px;
+  padding-left: 10px;
+
+  &.active {
+    background-color: #80808022;
+  }
 }
